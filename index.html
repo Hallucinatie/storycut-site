@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StoryCut：把论文讲成有出处的视频</title>
+<meta name="description" content="上传一篇论文，StoryCut 读懂全文和图表、核对关键数字，写成有起承转合的中文讲解，配音并渲染成视频。每句话都标着它引用的原文。">
+<meta name="theme-color" content="#f7f6f2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315171c'/%3E%3Cpath d='M9 21.5c1.4 1.2 3.4 1.9 5.4 1.9 3 0 5-1.4 5-3.6 0-4.6-9.6-2.9-9.6-7.4 0-2 1.9-3.4 4.6-3.4 1.8 0 3.4.5 4.6 1.4' fill='none' stroke='%23ffe14d' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top" aria-label="StoryCut 首页"><span class="logo-mark" aria-hidden="true">S</span>StoryCut</a>
+    <nav class="nav-links" aria-label="页面导航">
+      <a href="#frames">成片</a>
+      <a href="#cite">出处</a>
+      <a href="#features">功能</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <a class="btn btn-ink btn-sm" data-app href="#">打开工作台</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero ------------------------------------------------------------ -->
+  <section class="hero" id="hero">
+    <div class="glow" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <a class="float-card fc-left" href="#frames" data-depth="1" aria-label="看成片画面：Voyager 引言">
+      <span class="fc-inner"><img src="assets/figure.jpg?v=5" alt="">
+      <span class="fc-play" aria-hidden="true"></span>
+      <span class="fc-meta"><b>引言：终身学习的挑战</b><small>Voyager · Figure 1 · 第 1 页</small><i style="--w:38%"></i></span></span>
+    </a>
+    <a class="float-card fc-right" href="#frames" data-depth="-1" aria-label="看成片画面：Voyager 消融实验">
+      <span class="fc-inner"><img src="assets/metric.jpg?v=5" alt="">
+      <span class="fc-play" aria-hidden="true"></span>
+      <span class="fc-meta"><b>消融实验：缺了哪块都不行</b><small>Voyager · Figure 9 · 第 9 页</small><i style="--w:64%"></i></span></span>
+    </a>
+
+    <div class="hero-inner">
+      <h1 class="hero-title" aria-label="把一篇论文讲成一部有出处的视频">
+        <span class="line" aria-hidden="true">把<span class="typed" id="typed">一篇论文</span><span class="caret"></span></span>
+        <span class="line" aria-hidden="true">讲成一部 <em id="typedMin">8</em> 分钟的视频</span>
+      </h1>
+      <p class="hero-sub">读懂全文和每一张图表，核对关键数字，写成有起承转合的中文讲解，再配音、渲染成片。每一句话都标着它引用的原文。</p>
+
+      <a class="prompt" data-app href="#" aria-label="打开工作台，上传论文生成讲解">
+        <span class="prompt-ring" aria-hidden="true"></span>
+        <span class="prompt-text">拖入论文 PDF，说说你想讲给谁听…</span>
+        <span class="prompt-row">
+          <span class="chip chip-icon" aria-hidden="true">+</span>
+          <span class="chip">约 <b id="chipMin">8</b> 分钟</span>
+          <span class="chip">观众：<b id="chipWho">相关方向的研究生</b></span>
+          <span class="chip hide-sm">配音：Xiaoyu 女声</span>
+          <span class="go"><span aria-hidden="true">✦</span>生成讲解</span>
+        </span>
+      </a>
+      <p class="hero-fine">免费使用，消耗你自己的魔搭额度。一篇 8 分钟的讲解约 20 次模型调用。</p>
+    </div>
+
+    <div class="marquee" aria-label="使用的模型">
+      <div class="marquee-track">
+        <span>Qwen3.5-397B-A17B</span><span>Qwen3.5-122B-A10B</span><span>MOSS-TTS-Nano</span><span>Z-Image-Turbo</span><span>Remotion</span><span>ModelScope 魔搭</span>
+        <span aria-hidden="true">Qwen3.5-397B-A17B</span><span aria-hidden="true">Qwen3.5-122B-A10B</span><span aria-hidden="true">MOSS-TTS-Nano</span><span aria-hidden="true">Z-Image-Turbo</span><span aria-hidden="true">Remotion</span><span aria-hidden="true">ModelScope 魔搭</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frames strip ---------------------------------------------------- -->
+  <section class="frames" id="frames" aria-labelledby="frames-title">
+    <div class="wrap center">
+      <h2 class="reveal-chars" id="frames-title">剪出来的，是能<span class="hl">直接放映</span>的成片</h2>
+      <p class="lead">下面每一帧都来自 StoryCut 自动生成的 Voyager 论文讲解。点一下，从那一刻开始播放。</p>
+    </div>
+    <div class="strip" id="strip">
+      <div class="strip-track" id="stripTrack">
+        <button class="frame" data-t="1.5"><img src="assets/cover.jpg?v=5" alt="片头：论文标题"><span><b>片头</b><small>0:01</small></span></button>
+        <button class="frame" data-t="12.1"><img src="assets/f_arch.jpg?v=5" alt="架构图：镜头推近技能库"><span><b>架构 · 推近 Figure 2</b><small>0:12</small></span></button>
+        <button class="frame" data-t="56.9"><img src="assets/f_table.jpg?v=5" alt="Table 1：圈出 15.3 倍的来源"><span><b>15.3× · 圈出 Table 1</b><small>0:56</small></span></button>
+        <button class="frame" data-t="71.2"><img src="assets/f_loupe.jpg?v=5" alt="放大镜：钻石层级 102 (1/3)"><span><b>放大镜 · 钻石层级</b><small>1:11</small></span></button>
+        <button class="frame" data-t="88.4"><img src="assets/f_ablation.jpg?v=5" alt="消融实验：−93%"><span><b>消融实验 · −93%</b><small>1:28</small></span></button>
+        <button class="frame" data-t="156.5"><img src="assets/f_limits.jpg?v=5" alt="局限：三张卡片"><span><b>局限与挑战</b><small>2:36</small></span></button>
+        <button class="frame" data-t="172.8"><img src="assets/f_recap.jpg?v=5" alt="片尾：章节回顾"><span><b>片尾回顾</b><small>2:52</small></span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Citation player (the signature) --------------------------------- -->
+  <section class="cite" id="cite" aria-labelledby="cite-title">
+    <div class="wrap center">
+      <h2 class="reveal-chars" id="cite-title">每一句话，都标着<span class="hl">出处</span></h2>
+      <p class="lead">讲到哪张图，就引用哪一页。数字先对照原文，再出现在画面上。</p>
+    </div>
+    <div class="wrap">
+      <figure class="player" id="player">
+        <div class="player-bar" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <b>Voyager_讲解.mp4</b>
+          <em>720p · 静音预览</em>
+        </div>
+        <div class="player-screen">
+          <video id="heroVideo" src="assets/hero.mp4?v=5" poster="assets/cover.jpg?v=5" muted loop playsinline preload="metadata"
+                 aria-label="StoryCut 生成的 Voyager 论文讲解片段（静音预览）"></video>
+          <div class="cite-stack" id="citeStack" aria-live="polite"></div>
+        </div>
+        <ol class="scrub" id="scrub" aria-label="样片章节">
+          <li data-at="0"><i></i><span>片头</span></li>
+          <li data-at="2.2"><i></i><span>架构</span></li>
+          <li data-at="8.2"><i></i><span>放大镜</span></li>
+          <li data-at="15.2"><i></i><span>消融实验</span></li>
+          <li data-at="21.2"><i></i><span>局限</span></li>
+        </ol>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Camera moves (clips from the film) ---------------------------------- -->
+  <section class="motion" id="motion" aria-labelledby="motion-title">
+    <div class="wrap center">
+      <h2 class="reveal-chars" id="motion-title">镜头会<span class="hl">跟着讲</span></h2>
+      <p class="lead">旁白讲到哪里，画面就动到哪里。下面都是成片里的原样片段，没有另外剪辑特效。</p>
+    </div>
+    <div class="wrap motion-grid">
+      <figure class="clip">
+        <div class="clip-screen"><video data-loop src="assets/m_zoom.mp4?v=5" poster="assets/m_zoom.jpg?v=5" muted loop playsinline preload="none"></video><span class="clip-tag">Figure 9 · 第 9 页</span></div>
+        <figcaption><b>推近，圈出重点</b><span>讲到哪条曲线，镜头就推近那里，荧光笔把它圈出来，标签随后弹出，其余部分退到背景里。</span></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="clip-screen"><video data-loop src="assets/m_pull.mp4?v=5" poster="assets/m_pull.jpg?v=5" muted loop playsinline preload="none"></video><span class="clip-tag">Figure 2 · 第 2 页</span></div>
+        <figcaption><b>先拉远，再推近</b><span>从一个模块讲到远处另一个模块时，镜头先退出来让你看清两者的位置，再推进去。</span></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="clip-screen"><video data-loop src="assets/m_loupe.mp4?v=5" poster="assets/m_loupe.jpg?v=5" muted loop playsinline preload="none"></video><span class="clip-tag">Table 1 · 第 7 页</span></div>
+        <figcaption><b>小格子用放大镜</b><span>表格里的一格太小，就从原处长出一张放大卡片，用虚线连回去，上下文还在。</span></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="clip-screen"><video data-loop src="assets/m_formula.mp4?v=5" poster="assets/m_formula.jpg?v=5" muted loop playsinline preload="none"></video><span class="clip-tag">演示 · Transformer 注意力</span></div>
+        <figcaption><b>公式逐项讲解</b><span>重要的公式先像手写一样写出来，再随旁白逐项点亮，每一项连到一句解释。</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Feature grid ----------------------------------------------------- -->
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="wrap center">
+      <h2 class="reveal-chars" id="features-title">从一篇 PDF 到<span class="hl">一部成片</span></h2>
+      <p class="lead">像一位认真备课的讲者：先读懂，再核对，再动笔，最后才出片。</p>
+    </div>
+    <div class="wrap grid">
+      <article class="card">
+        <h3>每张图都被读过</h3>
+        <p>按图注找到图表真实边界再裁剪，双栏、跨栏都能处理。Voyager 的 20 个图表全部找到，与人工标注重合度 0.94。</p>
+        <div class="viz viz-figs" aria-hidden="true">
+          <img src="assets/fig01_exploration.jpg" alt=""><img src="assets/fig02_architecture.jpg" alt=""><img src="assets/table01_with_caption.jpg" alt="">
+          <img src="assets/fig03_curriculum.jpg" alt=""><img src="assets/fig09_ablations.jpg" alt=""><img class="pending" src="assets/fig07_map.jpg" alt="">
+        </div>
+      </article>
+      <article class="card">
+        <h3>先核对，再动笔</h3>
+        <p>每个结论都带数字、条件和出处。旁白里的数字必须能在原文找到，改不掉的问题会标出来交给你。</p>
+        <div class="viz viz-facts" aria-hidden="true">
+          <div><small>Table 1 · 第 7 页</small><span>钻石工具成功率 <s>3/3</s> <mark>1/3</mark></span><em class="t-fix">已更正</em></div>
+          <div><small>Figure 9 · 第 9 页</small><span>去掉自动课程，物品数下降 93%</span><em class="t-ok">一致</em></div>
+        </div>
+      </article>
+      <article class="card">
+        <h3>按故事讲，不按目录念</h3>
+        <p>开场抛出具体场景，中间一个例子贯穿始终，每章接住上一章，结尾三点回顾。</p>
+        <div class="viz viz-outline" aria-hidden="true">
+          <span class="ok"><i>1</i>开局即巅峰？</span>
+          <span class="ok"><i>2</i>没有地图怎么探险？</span>
+          <span class="ok"><i>3</i>给自己出题的老师</span>
+          <span class="run"><i>4</i>写代码而不是按按钮</span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>推近原图，圈出重点</h3>
+        <p>旁白讲到哪条曲线、哪一格数据，镜头就推近那里，并加上带标签的高亮框。</p>
+        <div class="viz viz-shot" aria-hidden="true"><video data-loop src="assets/c_table.mp4?v=5" poster="assets/c_table.jpg?v=5" muted loop playsinline preload="none"></video></div>
+      </article>
+      <article class="card">
+        <h3>数字画成图表</h3>
+        <p>−93% 画成缩短的条形，15.3× 画成对照条，1/3 画成圆点。单位按原文自动补齐。</p>
+        <div class="viz viz-shot" aria-hidden="true"><video data-loop src="assets/c_metric.mp4?v=5" poster="assets/c_metric.jpg?v=5" muted loop playsinline preload="none"></video></div>
+      </article>
+      <article class="card">
+        <h3>像剪辑台一样修改</h3>
+        <p>逐章改旁白、版式和引用。不满意的章节让 AI 只改这一章，锁定的章节不会被动到。</p>
+        <div class="viz viz-bench" aria-hidden="true">
+          <div class="vb-list"><span class="on">01 开局即巅峰？</span><span>02 没有地图…</span><span>03 给自己出题…</span><span class="flag">04 写代码而不…</span></div>
+          <div class="vb-main"><img src="assets/cover.jpg?v=5" alt=""><div class="vb-strip"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+        </div>
+      </article>
+      <article class="card">
+        <h3>自然的中文配音</h3>
+        <p>MOSS-TTS-Nano 整段合成，字幕按配音真实时间对齐。“3×3”读作“3 乘 3”，引用标记不念。</p>
+        <div class="viz viz-wave" aria-hidden="true">
+          <div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="voices"><span class="on">Xiaoyu 女声</span><span>Yuewen</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <h3>后台导出，不用守着</h3>
+        <p>按场景渲染并缓存，只改一章就只重渲那一章。刷新或关掉页面都不会中断。</p>
+        <div class="viz viz-export" aria-hidden="true">
+          <ol><li class="done">配音 4/4</li><li class="active">渲染场景 5/6</li><li>拼接成片</li></ol>
+          <div class="bar"><i></i></div>
+          <small>约 40 秒后完成</small>
+        </div>
+      </article>
+      <article class="card">
+        <h3>拿走就能用</h3>
+        <p>配音版或无配音版，720p 或 1080p。成片之外，还有字幕和分镜。</p>
+        <div class="viz viz-files" aria-hidden="true">
+          <span><b>MP4</b>Voyager_讲解_1080p.mp4</span>
+          <span><b>SRT</b>字幕.srt</span>
+          <span><b>JSON</b>分镜.json</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Script before / after ------------------------------------------- -->
+  <section class="script" aria-labelledby="script-title">
+    <div class="wrap center">
+      <h2 class="reveal-chars" id="script-title">听起来<span class="hl">像人在讲</span>，而不是在念摘要</h2>
+      <p class="lead">同一篇论文、同样 8 分钟。16 段零散要点，变成 10 章有承接的讲解。</p>
+    </div>
+    <div class="wrap compare">
+      <article class="say say-old">
+        <header><b>按目录逐节总结</b><span>16 章，每章 55–300 字</span></header>
+        <p>VOYAGER 的魔力源于其三大支柱。首先看左侧紫色区域，这是自动课程，它负责生成从砍树到打僵尸的渐进式任务序列。中间蓝色区域是迭代提示机制……</p>
+        <ul><li>每章重新开头，章与章之间接不上</li><li>一章塞进 9 个数字，没解释含义</li><li>“不仅是数量的胜利，更是飞跃”这类套话</li></ul>
+      </article>
+      <article class="say say-new">
+        <header><b>StoryCut 现在的写法</b><span>10 章，每章 170–240 字</span></header>
+        <p>想象一个 Minecraft 新手，刚出生就试图挖钻石。大多数 AI 玩家在这里就会卡住，要么原地打转，要么在简单任务上反复失败。看这张地图，橙色轨迹代表 VOYAGER……为什么它能走得更远？</p>
+        <ul><li>用一个具体场景开场，结尾引出下一章</li><li>每章最多两三个数字，并说明它意味着什么</li><li>术语第一次出现时用大白话解释</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Two entries ----------------------------------------------------- -->
+  <section class="entries" aria-labelledby="entries-title">
+    <div class="wrap center">
+      <h2 class="reveal-chars" id="entries-title">两种开始方式</h2>
+    </div>
+    <div class="wrap entry-grid">
+      <a class="entry" data-app href="#">
+        <span class="entry-art"><img src="assets/cover.jpg?v=5" alt="" loading="lazy"></span>
+        <span class="entry-body">
+          <b>论文讲解视频</b>
+          <span>上传一篇论文 PDF，生成 5 到 12 分钟的章节式讲解：原论文图表、中文配音和字幕、来源标注。</span>
+          <em>上传论文</em>
+        </span>
+      </a>
+      <a class="entry" data-app href="#">
+        <span class="entry-art short-art" aria-hidden="true">
+          <span class="plan"><b>方案 A：问题先行</b><span class="shots"><i class="on">痛点</i><i>为什么难</i><i class="pic">产品流程</i><i>行动号召</i></span></span>
+          <span class="plan dim"><b>方案 B：结果先行</b><span class="shots"><i class="pic">成片效果</i><i>怎么做到</i><i>对比</i><i>行动号召</i></span></span>
+        </span>
+        <span class="entry-body">
+          <b>素材短片</b>
+          <span>把产品资料、图片和短视频剪成 30 到 60 秒的短片。先给出两套叙事方案对比，再逐个镜头调整。</span>
+          <em>上传素材</em>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Sample ---------------------------------------------------------- -->
+  <section class="sample" id="sample" aria-labelledby="sample-title">
+    <div class="wrap center">
+      <h2 class="reveal-chars" id="sample-title">完整样片，带配音</h2>
+      <p class="lead">节选自 Voyager 论文讲解的片头、4 章和片尾，共 2 分 55 秒。讲到图里的哪一部分，镜头就推近到哪里。章节由模型撰写，放大区域部分经人工核对，画面、字幕和配音都由 StoryCut 渲染。</p>
+    </div>
+    <div class="wrap">
+      <div class="sample-frame">
+        <video id="sampleVideo" src="assets/sample.mp4?v=5" poster="assets/cover.jpg?v=5" controls preload="none" playsinline
+               aria-label="StoryCut 生成的 Voyager 论文讲解样片，带中文配音"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ ------------------------------------------------------------- -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-wrap">
+      <div>
+        <h2 class="reveal-chars" id="faq-title">常见问题</h2>
+        <p class="lead left">关于费用、账号和数据，最常被问到的几件事。</p>
+      </div>
+      <div class="faq-list">
+        <details><summary>要花钱吗？</summary><p>StoryCut 本身免费。生成讲解会调用魔搭 API-Inference 上的模型，消耗你自己账号的魔粒。一篇约 8 分钟的讲解大约 20 次调用。配音和渲染在服务器上完成，不额外消耗魔粒。</p></details>
+        <details><summary>需要准备什么账号？</summary><p>一个魔搭 ModelScope 账号。第一次用之前，请在账号设置里完成阿里云账号绑定、实名认证和邮箱验证，否则模型接口会拒绝调用。也可以直接填写自己的 SDK Token。</p></details>
+        <details><summary>我的 Token 和论文安全吗？</summary><p>自己填写的 Token 只保存在服务器内存里，8 小时后失效，不会写入文件，也不会发回浏览器。生成的项目只对创建它的账号可见。</p></details>
+        <details><summary>生成一篇要多久？</summary><p>读论文到写完分镜，一篇 40 页左右的论文约 5 到 8 分钟。导出成片的时间取决于时长、清晰度和服务器配置。导出在后台进行，不用守着页面。</p></details>
+        <details><summary>讲错了怎么办？</summary><p>每个镜头都标着它引用的原文页码和图表。自动核查没能解决的问题，会在章节列表上标出来。你可以直接改旁白，或者让 AI 只重写这一章。</p></details>
+        <details><summary>能导出什么？</summary><p>MP4 成片（配音版或无配音版，720p 或 1080p），以及 SRT 字幕和分镜 JSON。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA ------------------------------------------------------- -->
+  <section class="final">
+    <div class="glow glow-final" aria-hidden="true"><i class="b1"></i><i class="b2"></i></div>
+    <div class="wrap center">
+      <h2 class="reveal-chars"><span class="nb">下一篇要讲的论文，</span><span class="nb">先让 StoryCut <span class="hl">剪一版</span></span></h2>
+      <p class="lead">上传 PDF，几分钟后就能在工作台里逐章修改。</p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" data-app href="#"><span aria-hidden="true">✦</span>上传论文，生成讲解</a>
+        <a class="btn btn-ghost btn-lg" href="#sample">先看样片</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <a class="logo" href="#top"><span class="logo-mark" aria-hidden="true">S</span>StoryCut</a>
+      <p>把论文和素材，剪成有出处的视频。</p>
+    </div>
+    <nav class="foot-cols" aria-label="页脚">
+      <div><b>产品</b><a href="#frames">成片</a><a href="#features">功能</a><a href="#sample">样片</a><a data-app href="#">打开工作台</a></div>
+      <div><b>模型</b><a href="https://modelscope.cn/models/Qwen/Qwen3.5-397B-A17B" rel="noopener">Qwen3.5-397B</a><a href="https://github.com/OpenMOSS/MOSS-TTS-Nano" rel="noopener">MOSS-TTS-Nano</a><a href="https://www.remotion.dev" rel="noopener">Remotion</a></div>
+      <div><b>帮助</b><a href="#faq">常见问题</a><a href="https://modelscope.cn/my/settings/account" rel="noopener">魔搭账号设置</a><a href="https://modelscope.cn/my/myaccesstoken" rel="noopener">获取 SDK Token</a></div>
+    </nav>
+  </div>
+  <div class="wrap foot-legal">AI 生成的文案和插图都有标记，事实请对照来源核对。动效使用 <a href="https://motion.dev" rel="noopener">Motion</a>（原 Framer Motion）。</div>
+</footer>
+
+<script src="vendor/motion-12.4.7.js"></script>
+<script src="main.js?v=33"></script>
+</body>
+</html>

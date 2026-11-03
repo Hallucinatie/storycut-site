@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StoryCut 工作台</title>
+<meta name="description" content="StoryCut 工作台界面预览：讲解大纲、成片预览、镜头时间线和逐章编辑。">
+<meta name="theme-color" content="#f7f6f2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315171c'/%3E%3Cpath d='M9 21.5c1.4 1.2 3.4 1.9 5.4 1.9 3 0 5-1.4 5-3.6 0-4.6-9.6-2.9-9.6-7.4 0-2 1.9-3.4 4.6-3.4 1.8 0 3.4.5 4.6 1.4' fill='none' stroke='%23ffe14d' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=32">
+<style>
+  .wb { padding: 120px 0 100px; }
+  .wb-note { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 7px 14px; border-radius: 999px;
+    background: var(--card); box-shadow: 0 0 0 1px var(--line-2); color: var(--muted); font-size: .88rem; }
+  .wb-note b { width: 8px; height: 8px; border-radius: 4px; background: var(--hl); box-shadow: 0 0 0 1px var(--hl-text); }
+  .wb-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 40px; }
+  .wb-tab { padding: 9px 16px; border: 0; border-radius: 999px; background: var(--card); box-shadow: 0 0 0 1px var(--line); color: var(--muted);
+    font: inherit; font-size: .92rem; cursor: pointer; transition: box-shadow .2s, color .2s, background-color .2s; }
+  .wb-tab:hover { color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+  .wb-tab[aria-selected="true"] { background: var(--ink); color: var(--hl); box-shadow: none; }
+  .wb-frame { margin-top: 24px; border-radius: 20px; overflow: hidden; background: var(--card);
+    box-shadow: 0 0 0 1px var(--line-2), 0 50px 100px -50px rgba(20, 22, 30, .5); }
+  .wb-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--card-2); }
+  .wb-bar span { width: 11px; height: 11px; border-radius: 6px; background: var(--line-2); }
+  .wb-bar em { margin-left: 10px; color: var(--muted); font-size: .82rem; font-style: normal; }
+  .wb-shot { display: block; width: 100%; aspect-ratio: 1440 / 900; object-fit: cover; object-position: top; background: var(--card-2); }
+  .wb-caption { max-width: 46em; margin: 22px auto 0; color: var(--muted); text-align: center; }
+  .wb-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 64px; }
+  .wb-points article { padding: 24px 26px; border-radius: var(--r); background: var(--card); box-shadow: 0 0 0 1px var(--line); }
+  .wb-points h3 { font-size: 1.1rem; font-weight: 600; }
+  .wb-points p { margin-top: 8px; color: var(--muted); font-size: .93rem; }
+  .wb-run { margin-top: 64px; text-align: center; }
+  .wb-run pre { display: inline-block; margin: 14px auto 0; padding: 14px 20px; border-radius: 12px; background: var(--ink); color: #f4f2ea;
+    font-size: .88rem; text-align: left; white-space: pre-wrap; word-break: break-all; }
+  @media (max-width: 760px) {
+    .wb { padding-top: 96px; }
+    .wb-points { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav scrolled" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="./" aria-label="StoryCut 首页"><span class="logo-mark" aria-hidden="true">S</span>StoryCut</a>
+    <a class="btn btn-ghost btn-sm" href="./">返回首页</a>
+  </div>
+</header>
+
+<main class="wb">
+  <div class="wrap center">
+    <h1 class="wb-title" style="font-size: clamp(2rem, 4.2vw, 3.2rem); line-height: 1.22;">StoryCut <span class="hl">工作台</span></h1>
+    <p class="lead">左边是项目，中间是讲解大纲和 AI 改写，右边是成片预览、镜头时间线和逐章编辑。</p>
+    <p class="wb-note"><b aria-hidden="true"></b>这是界面预览。生成新视频需要在本机运行 StoryCut 并连接魔搭模型。</p>
+
+    <div class="wb-tabs" role="tablist" aria-label="工作台截图">
+      <button class="wb-tab" role="tab" aria-selected="true" data-shot="wb_bench_ch3" data-text="选中第 3 章：右侧预览就是成片里的这一章，下方时间线高亮对应的镜头。">原图章节</button>
+      <button class="wb-tab" role="tab" aria-selected="false" data-shot="wb_bench_ch13" data-text="消融实验一章：右侧预览这一章的两组曲线，下方的文稿可以逐章修改标题、旁白和版式。">数字章节</button>
+      <button class="wb-tab" role="tab" aria-selected="false" data-shot="wb_bench_ch1" data-text="载入样例后：15 章的讲解大纲，每章标出版式和时长，整片 11 分 54 秒。">讲解大纲</button>
+      <button class="wb-tab" role="tab" aria-selected="false" data-shot="wb_home" data-text="首页就是入口：把论文拖进对话框，选时长、观众和配音，点生成。">首页入口</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <figure class="wb-frame" style="margin-left: 0; margin-right: 0;">
+      <div class="wb-bar" aria-hidden="true"><span></span><span></span><span></span><em>StoryCut · Voyager 论文讲解样例</em></div>
+      <img class="wb-shot" id="wbShot" src="assets/wb_bench_ch3.jpg" alt="StoryCut 工作台截图">
+    </figure>
+    <p class="wb-caption" id="wbCaption" aria-live="polite">选中第 3 章：右侧预览就是成片里的这一章，下方时间线高亮对应的镜头。</p>
+
+    <div class="wb-points">
+      <article><h3>预览就是成片</h3><p>右侧播放器和导出用的是同一套 Remotion 模板，改完旁白立刻能看到效果。</p></article>
+      <article><h3>只改一章</h3><p>在中间的对话框里让 AI 改写当前章节；锁定的章节不会被改动，导出时也只重渲改过的章节。</p></article>
+      <article><h3>每句都有出处</h3><p>“来源”页列出每章引用的原文段落、图表和页码，数字都能对回论文。</p></article>
+    </div>
+
+    <div class="wb-run">
+      <p class="lead">在本机运行完整工作台：</p>
+      <pre>python storycut_demo/run_local.py</pre>
+    </div>
+  </div>
+</main>
+
+<script>
+  (() => {
+    const tabs = [...document.querySelectorAll(".wb-tab")];
+    const shot = document.getElementById("wbShot");
+    const caption = document.getElementById("wbCaption");
+    tabs.forEach((tab) => {
+      const preload = new Image();
+      preload.src = `assets/${tab.dataset.shot}.jpg`;
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+        shot.src = `assets/${tab.dataset.shot}.jpg`;
+        caption.textContent = tab.dataset.text;
+      });
+    });
+  })();
+</script>
+</body>
+</html>
