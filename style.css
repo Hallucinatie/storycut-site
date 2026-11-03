@@ -146,11 +146,15 @@ section h2 { font-size: clamp(2rem, 4.2vw, 3.2rem); line-height: 1.22; }
 .frames, .cite, .motion, .features, .script, .entries, .sample, .faq { padding-top: 140px; }
 
 /* Frames strip: an endless, hover-pausable reel of real film frames. */
-.strip { margin-top: 56px; overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+/* A real scroller (trackpad, Shift+wheel, drag, swipe); main.js drifts it slowly when nobody is touching it. */
+.strip { margin-top: 56px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; cursor: grab;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.strip-track { display: flex; gap: 20px; width: max-content; padding: 10px 0 30px; animation: reel 60s linear infinite; }
-.strip:hover .strip-track, .strip:focus-within .strip-track { animation-play-state: paused; }
-@keyframes reel { to { transform: translateX(calc(-50% - 10px)); } }
+.strip::-webkit-scrollbar { display: none; }
+.strip.dragging { cursor: grabbing; }
+.strip.dragging .frame { pointer-events: none; }
+.strip-track { display: flex; gap: 20px; width: max-content; padding: 10px 0 30px; }
+.strip img { -webkit-user-drag: none; user-select: none; }
 .frame { position: relative; flex: none; width: clamp(280px, 30vw, 420px); padding: 0; border: 0; border-radius: 16px; overflow: hidden; cursor: pointer;
   background: var(--card); box-shadow: 0 0 0 1px var(--line); text-align: left; transition: box-shadow .25s; }
 .frame:hover { box-shadow: 0 0 0 2px var(--ink), var(--shadow); }
@@ -367,6 +371,5 @@ section h2 { font-size: clamp(2rem, 4.2vw, 3.2rem); line-height: 1.22; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .marquee-track, .strip-track, .prompt-ring, .float-card, .caret, .wave i, .viz-export .bar i, .viz-outline .run i { animation: none; }
-  .strip { overflow-x: auto; }
+  .marquee-track, .prompt-ring, .float-card, .caret, .wave i, .viz-export .bar i, .viz-outline .run i { animation: none; }
 }

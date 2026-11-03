@@ -174,9 +174,61 @@
       copy.tabIndex = -1;
       track.append(copy);
     });
+    // Drifts slowly; stops while hovered, touched or dragged and picks up again shortly after.
+    // The track holds two copies, so wrapping by half its width is invisible.
+    const strip = $("#strip");
+    const half = () => track.scrollWidth / 2 + 10;  // + half the gap between the copies
+    let pos = 0, hovering = false, dragging = null, moved = false, quietUntil = 0, visible = false, last = 0;
+    const wrap = () => {
+      const w = half();
+      if (strip.scrollLeft >= w) strip.scrollLeft -= w;
+      else if (strip.scrollLeft <= 0) strip.scrollLeft += w;
+      pos = strip.scrollLeft;
+    };
+    const hold = (ms = 1800) => { quietUntil = performance.now() + ms; };
+    const drift = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000 || 0);
+      last = now;
+      if (visible && !reduceMotion && !hovering && !dragging && now > quietUntil) {
+        pos += 42 * dt;
+        strip.scrollLeft = pos;
+        if (strip.scrollLeft >= half()) wrap();
+      }
+      if (visible) requestAnimationFrame(drift);
+    };
+    strip.scrollLeft = pos = 1;
+    strip.addEventListener("scroll", () => { if (Math.abs(strip.scrollLeft - pos) > 1) { hold(); wrap(); } }, { passive: true });
+    strip.addEventListener("mouseenter", () => { hovering = true; });
+    strip.addEventListener("mouseleave", () => { hovering = false; hold(600); });
+    strip.addEventListener("touchstart", () => hold(4000), { passive: true });
+    strip.addEventListener("focusin", () => hold(4000));
+    strip.addEventListener("pointerdown", (event) => {
+      if (event.pointerType !== "mouse" || event.button !== 0) return;  // touch scrolls natively
+      dragging = { x: event.clientX, left: strip.scrollLeft };
+      moved = false;
+    });
+    window.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      const dx = event.clientX - dragging.x;
+      if (!moved && Math.abs(dx) > 5) { moved = true; strip.classList.add("dragging"); }
+      if (moved) { strip.scrollLeft = dragging.left - dx; wrap(); dragging.left = strip.scrollLeft + dx; }
+    });
+    window.addEventListener("pointerup", () => {
+      if (!dragging) return;
+      dragging = null;
+      strip.classList.remove("dragging");
+      hold();
+    });
+    new IntersectionObserver(([entry]) => {
+      const was = visible;
+      visible = entry.isIntersecting;
+      if (visible && !was) { last = performance.now(); requestAnimationFrame(drift); }
+    }).observe(strip);
+
     const sample = $("#sampleVideo");
     track.addEventListener("click", (event) => {
       const frame = event.target.closest(".frame");
+      if (moved) { moved = false; event.preventDefault(); return; }  // the end of a drag, not a click
       if (!frame || !sample) return;
       const at = Number(frame.dataset.t) || 0;
       $("#sample").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
